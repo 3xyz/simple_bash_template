@@ -17,10 +17,10 @@ bold="\033[1m"
 normal="\033[0m"
 
 main() {
-  # Handle Ctrl-Z Ctrl-C Ctrl-/
-  trap terminate INT
-  trap terminate QUIT
-  trap terminate TSTP
+  trap terminate INT   # Handle Ctrl-C
+  trap terminate QUIT  # Handle Ctrl-\\
+  trap terminate TSTP  # Handle Ctrl-Z
+  trap terminate EXIT
   # Import files
   source "$(project_path)/our_main_funcs.sh"
   source "$(project_path)/progress_bar.sh"
@@ -34,8 +34,7 @@ parse_args() {
     case ${@:$i:1} in
       -d|--domain)
         DOMAIN="${@:$i+1:1}"
-        check_domain "$DOMAIN"
-        echo_domain "$DOMAIN"
+        check_single_domain "$DOMAIN"
         shift
         ;;
       -f|--file)
@@ -54,13 +53,6 @@ parse_args() {
         ;;
     esac
   done
-}
-
-# Check for DNS records (just example)
-check_domain() {
-  if ! host $1 > /dev/null; then
-    error "domain ($1) not alive"
-  fi
 }
 
 # Check for file exists (just example)
@@ -82,11 +74,9 @@ project_path() {
   echo $DIR
 }
 
-# Handled terminated shortcuts
+# We can handle terminating for remove temp files for example
 terminate() {
   printf "\n ${bold}${red}Terminated\n"
-  # We can handle terminating for remove temp files for example
-  # remove_temp
   exit 1
 }
 
@@ -94,7 +84,7 @@ terminate() {
 main "$@"
 ```
 
-## our_main_functions.sh
+## our_main_funcs.sh
 
 ```bash
 #!/usr/bin/env bash
@@ -108,7 +98,7 @@ chack_domains_from_file() {
   processed=0
   while read line; do 
     progress_bar $processed $domains_count
-    if host "$line" > /dev/null; then
+    if is_alive "$line"; then
       progress_print "$line"
     fi
     let processed++
@@ -116,9 +106,26 @@ chack_domains_from_file() {
 
   info "Good bye!"
 }
+
+check_single_domain() {
+  if is_alive "$1"; then
+    echo_domain "$1"
+  else
+    error "domain ($1) not alive"
+  fi
+}
+
+# Check for DNS records
+is_alive() {
+  if host "$1" > /dev/null; then
+    return 0
+  else 
+    return 1
+  fi
+}
 ```
 
-## progress_bar
+## progress_bar.sh
 
 ```bash
 #!/usr/bin/env bash

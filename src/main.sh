@@ -12,7 +12,7 @@ main() {
   trap terminate INT   # Handle Ctrl-C
   trap terminate QUIT  # Handle Ctrl-\\
   trap terminate TSTP  # Handle Ctrl-Z
-  trap terminate EXIT
+  # trap terminate EXIT # Handle any exit
   # Import files
   source "$(project_path)/our_main_funcs.sh"
   source "$(project_path)/progress_bar.sh"

@@ -2,6 +2,7 @@
 
 Simple bash template for simple tool developing.
 
+![asciinema](./record.gif)
 
 ## main.sh
 

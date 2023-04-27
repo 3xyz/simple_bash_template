@@ -2,8 +2,7 @@
 
 random_emoji() {
   emoji="👺 😫 😅 🤌"
-  index=$(shuf -i 1-5 -n 1)
-  echo "$(echo $emoji | cut -d ' ' -f $index)"
+  echo ${emoji[$RANDOM % ${#emoji[@]}]}
 }
 
 info() {

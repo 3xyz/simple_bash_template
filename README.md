@@ -4,7 +4,8 @@ Simple bash template for simple tool developing.
 
 ![asciinema](./record.gif)
 
-## main.sh
+<details>
+<summary>main.sh</summary>
 
 ```bash
 #!/usr/bin/env bash
@@ -84,8 +85,10 @@ terminate() {
 # Start
 main "$@"
 ```
+</details>
 
-## our_main_funcs.sh
+<details>
+<summary>our_main_funcs.sh</summary>
 
 ```bash
 #!/usr/bin/env bash
@@ -125,8 +128,10 @@ is_alive() {
   fi
 }
 ```
+</details>
 
-## progress_bar.sh
+<details>
+<summary>progress_bar.sh</summary>
 
 ```bash
 #!/usr/bin/env bash
@@ -157,8 +162,10 @@ progress_print() {
   fi
 }
 ```
+</details>
 
-## error.sh 
+<details>
+<summary>error.sh</summary>
 
 ```bash 
 #!/usr/bin/env bash
@@ -191,3 +198,4 @@ help_message() {
   echo "  -h, --help      Show this help"
 }
 ```
+</details>

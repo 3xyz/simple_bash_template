@@ -72,4 +72,5 @@ terminate() {
   exit 1
 }
 
-# Start main "$@"
+# Start 
+main "$@"

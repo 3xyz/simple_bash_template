@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 random_emoji() {
-  emoji="👺 😫 😅 🤌"
+  emoji=(👿 👺 😫 😅 🤌)
   echo ${emoji[$RANDOM % ${#emoji[@]}]}
 }
 
